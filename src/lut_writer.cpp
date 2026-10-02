@@ -1,6 +1,7 @@
 #include "lut_writer.h"
 
 #include <algorithm>
+#include <cctype>
 #include <cmath>
 #include <iomanip>
 #include <limits>
