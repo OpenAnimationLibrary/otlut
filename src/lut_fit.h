@@ -15,9 +15,11 @@ struct Lut3D {
 struct FitReport {
   std::size_t pixelsExamined = 0;
   std::size_t directlySampledCells = 0;
+  std::size_t inferredCells = 0;
   std::size_t totalCells = 0;
 
   double coveragePercent() const;
+  double inferredPercent() const;
 };
 
 Lut3D makeIdentityLut(int size);
