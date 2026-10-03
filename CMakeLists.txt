@@ -40,6 +40,15 @@ if(BUILD_TESTING)
   )
   target_link_libraries(otlut_tests PRIVATE otlut_core)
   add_test(NAME otlut_tests COMMAND otlut_tests)
+
+  find_package(Python3 COMPONENTS Interpreter REQUIRED)
+  add_test(
+    NAME single_image_integration
+    COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/run_single_image_integration.py
+            --exe $<TARGET_FILE:otlut>
+            --workdir ${CMAKE_CURRENT_BINARY_DIR}/single_image_integration
+  )
 endif()
 
 install(TARGETS otlut RUNTIME DESTINATION bin)
