@@ -133,7 +133,10 @@ int main(int argc, char* argv[]) {
                 << "Directly sampled LUT cells: "
                 << report.directlySampledCells << " / " << report.totalCells
                 << " (" << std::fixed << std::setprecision(1)
-                << report.coveragePercent() << "%)\n";
+                << report.coveragePercent() << "%)\n"
+                << "Interpolated/fill LUT cells: " << report.inferredCells
+                << " / " << report.totalCells << " (" << std::fixed
+                << std::setprecision(1) << report.inferredPercent() << "%)\n";
     }
 
     std::ofstream output(outputPath, std::ios::out | std::ios::trunc);
