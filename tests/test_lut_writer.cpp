@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+void runFitTests();
+
 namespace {
 
 void expect(bool condition, const std::string& message) {
@@ -22,12 +24,11 @@ std::vector<std::string> lines(const std::string& text) {
 }
 
 void testCubeIdentity() {
-  otlut::IdentityLutOptions options;
-  options.size = 2;
+  otlut::LutWriteOptions options;
   options.title = "test";
 
   std::ostringstream output;
-  otlut::writeIdentityCube(output, options);
+  otlut::writeIdentityCube(output, 2, options);
   const auto all = lines(output.str());
 
   expect(all.size() == 13, "2x2x2 cube should contain 5 headers + 8 entries");
@@ -38,12 +39,11 @@ void testCubeIdentity() {
 }
 
 void testThreeDlIdentity() {
-  otlut::IdentityLutOptions options;
-  options.size = 3;
+  otlut::LutWriteOptions options;
   options.outputBitDepth = 8;
 
   std::ostringstream output;
-  otlut::writeIdentityThreeDl(output, options);
+  otlut::writeIdentityThreeDl(output, 3, options);
   const auto all = lines(output.str());
 
   expect(all.size() == 31, "3x3x3 3dl should contain 4 headers + 27 entries");
@@ -79,6 +79,7 @@ int main() {
     testThreeDlIdentity();
     testThreeDlSizes();
     testFormatDetection();
+    runFitTests();
     std::cout << "All otlut tests passed.\n";
     return EXIT_SUCCESS;
   } catch (const std::exception& e) {
