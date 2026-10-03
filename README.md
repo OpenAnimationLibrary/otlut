@@ -45,6 +45,30 @@ Because the original RGB values are known exactly, this can provide a reliable w
 
 Estimating a LUT from only one already-graded image is inherently approximate because the original colors are unknown. This should be a later experimental feature and clearly distinguished from paired-image fitting.
 
+## Current single-image workflow
+
+The current development branch can fit a LUT from one aligned source/target image pair.
+
+```text
+otlut --source original.png --target graded.png --output look.cube --size 33
+```
+
+For OpenToonz-compatible `.3dl` output:
+
+```text
+otlut --source original.png --target graded.png --output look.3dl --size 33 --output-bit-depth 12
+```
+
+Requirements for this first implementation:
+
+- source and target images must have identical pixel dimensions
+- corresponding pixels are assumed to represent the same image location
+- supported decoder formats currently include PNG, JPEG, BMP, TGA, PSD, GIF, HDR, PIC and PNM
+- the fit is intentionally conservative: LUT cells directly supported by source colors are fitted from the paired target colors; unsupported cells remain identity
+- the command reports the number and percentage of directly sampled LUT cells
+
+This is the first functional image-to-LUT path. Sequence fitting, TIFF/EXR support, color-space management and more advanced interpolation remain later stages.
+
 ## Proposed CLI
 
 ```text
